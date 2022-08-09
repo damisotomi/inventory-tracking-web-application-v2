@@ -9,11 +9,11 @@
 {% block content %}
     {% if products %}
     
-    <h4> List of all products available in all Warehouses combined. </h4>
+    <h4> List of all products. </h4>
     <p></P>
     <a href="{% url 'product_form'%}"><button>Add New Product</button></a>
     <p></P>
-    <a  href="{% url 'product_instance_form'%}" target="-blank"><button>Add New Product Instance/Transaction </button> </a>
+    <a  href="{% url 'product_instance_form'%}" target="-blank"><button>Add New Transaction </button> </a>
     <p></P>
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
@@ -42,7 +42,6 @@
                   {% comment %} since the related name btw products and product instance is product. the second product is the related name {% endcomment %}
     {% else %}
         <p> No product available </p>
-
     {% endif %}
 
 {% endblock content %}

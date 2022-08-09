@@ -1,4 +1,6 @@
 from email import message
+from django.db.models import Sum
+from multiprocessing import context
 from pyexpat.errors import messages
 import re
 from django.shortcuts import redirect, render,HttpResponse
@@ -11,9 +13,38 @@ from shopify.models import Group, ProductInstance, Warehouse, Product
 
 
 def index(request):
+
     num_of_visits=request.session.get('num_of_visits',0)
     request.session['num_of_visits']=num_of_visits+1
-    return render(request,'index.html',{'num_of_visits':num_of_visits})
+    product_count=Product.objects.count()
+    transaction_count=ProductInstance.objects.count()
+    warehouse_count=Warehouse.objects.count()
+    group_count=Group.objects.count()
+    product_queryset=Product.objects.select_related('group').prefetch_related('product').annotate(total_quantity=Sum('product__quantity')).order_by('-total_quantity')[0:5]
+    warehouse_queryset=Warehouse.objects.prefetch_related('warehouse').annotate(total_quantity=Sum('warehouse__quantity')).order_by('-total_quantity')[0:5]
+    productinstance0=ProductInstance.objects.all()[0]
+    productinstance1=ProductInstance.objects.all()[1]
+    productinstance2=ProductInstance.objects.all()[2]
+    productinstance3=ProductInstance.objects.all()[3]
+    productinstance4=ProductInstance.objects.all()[4]
+    productinstance5=ProductInstance.objects.all()[5]
+
+    context={
+        'num_of_visits':num_of_visits,
+        'product_count': product_count,
+        'transaction_count':transaction_count,
+        'warehouse_count':warehouse_count,
+        'group_count':group_count,
+        'product_queryset':product_queryset,
+        'warehouse_queryset':warehouse_queryset,
+        'productinstance0':productinstance0,
+        'productinstance1':productinstance1,
+        'productinstance2':productinstance2,
+        'productinstance3':productinstance3,
+        'productinstance4':productinstance4,
+        'productinstance5':productinstance5,
+    }
+    return render(request,'base.html',context=context)
 
 class WarehouseListView(generic.ListView):
     model=Warehouse
@@ -137,3 +168,6 @@ def warehouse_manual(request):
 
 def group_manual(request):
     return render(request,'group_manual.html')
+
+def profile(request):
+    return render(request,'profile.html')

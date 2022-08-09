@@ -19,6 +19,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Warehouse Name</th>
+                <th scope="col">Total Quantity of products (Bags)</th>
                 <th scope="col">Warehouse Location</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td> <a href="{{warehouse.get_absolute_url}}">{{ warehouse }}</a>  </td>
+                <td> {{warehouse.totalquantity}} </td>
                 <td>{{ warehouse.location }}</td>
             </tr>
             {% endfor %}

@@ -29,6 +29,7 @@ urlpatterns = [
     path('transactionmanual/', views.transaction_manual, name='transaction_manual'),
     path('warehousemanual/', views.warehouse_manual, name='warehouse_manual'),
     path('groupmanual/', views.group_manual, name='group_manual'),
+    path('profile/', views.profile, name='profile'),
        
     ]
 

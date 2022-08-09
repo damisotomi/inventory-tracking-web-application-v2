@@ -42,6 +42,12 @@ class Warehouse(models.Model):
     def get_absolute_url(self):
         '''Returns the Url  to access a detail record for this warehouse'''
         return reverse("warehouse_detail", kwargs={"pk": self.id})
+    
+    def totalquantity(self):
+        totalquantity=0
+        for warehouse in self.warehouse.all():
+            totalquantity+=warehouse.quantity
+        return totalquantity
 
 
 
@@ -51,6 +57,7 @@ class Product(models.Model):
     description=models.TextField(null=False,blank=False,max_length=1000,help_text="A short description of the product")
     code=models.UUIDField('Product code',primary_key=True, default=uuid.uuid4, help_text='Unique ID For this particular product across all warehouses/location')
     group=models.ForeignKey(Group,on_delete=models.SET_NULL,null=True,blank=True, related_name='group',help_text='Select a group (optional)')  
+    price=models.DecimalField(max_digits=6,decimal_places=2,default=5000)
 
     class Meta:
         ordering=['name']
@@ -61,7 +68,7 @@ class Product(models.Model):
 
     def totalquantity(self):
         total=0
-        for instance in self.product.all():
+        for instance in self.product.all(): #note product is the related name here
             total+=instance.quantity
         return total
 

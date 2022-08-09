@@ -32,7 +32,7 @@ SECRET_KEY=os.environ.get('DJANGO_SECRET_KEY',
 # DEBUG = True
 DEBUG=os.environ.get('DJANGO_DEBUG', '') !='False'
 
-ALLOWED_HOSTS = ['dami-sotomi-shopify-backend-challenge.azurewebsites.net','127.0.0.1','sotomi-inventory-tracking-app.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -64,7 +64,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'shopify/static'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
