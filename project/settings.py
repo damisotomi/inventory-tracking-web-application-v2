@@ -32,7 +32,7 @@ SECRET_KEY=os.environ.get('DJANGO_SECRET_KEY',
 # DEBUG = True
 DEBUG=os.environ.get('DJANGO_DEBUG', '') !='False'
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','sotomi-inventory-manager-v2.herokuapp.com']
 
 
 # Application definition
