@@ -42,6 +42,14 @@ class Warehouse(models.Model):
             totalquantity+=warehouse.quantity
         return totalquantity
 
+    def totalvalue(self):
+        total_value=0
+        if self.warehouse:
+            for value in self.warehouse.all():
+                total_value+= value.quantity * value.price 
+            return total_value
+        return total_value
+
 
 
 class Product(models.Model):
@@ -74,6 +82,7 @@ class ProductInstance(models.Model):
     quantity=models.IntegerField(help_text="Enter number of bags")
     warehouse=models.ForeignKey(Warehouse,on_delete=models.RESTRICT,related_name='warehouse')
     price=models.DecimalField(max_digits=9,decimal_places=2,help_text="Price for 1 bag")
+    #the idea here is that at different points in time, the same product might have different values
 
     def __str__(self) -> str:
         ''' String for representing the model object in admin site'''
