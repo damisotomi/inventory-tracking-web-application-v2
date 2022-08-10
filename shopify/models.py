@@ -1,10 +1,3 @@
-from audioop import add
-import code
-from doctest import BLANKLINE_MARKER
-from itertools import product
-from pyexpat import model
-from tokenize import group
-from unicodedata import name
 from django.db import models
 from django.urls import reverse
 import uuid
