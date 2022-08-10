@@ -50,7 +50,6 @@ class Product(models.Model):
     description=models.TextField(null=False,blank=False,max_length=1000,help_text="A short description of the product")
     code=models.UUIDField('Product code',primary_key=True, default=uuid.uuid4, help_text='Unique ID For this particular product across all warehouses/location')
     group=models.ForeignKey(Group,on_delete=models.SET_NULL,null=True,blank=True, related_name='group',help_text='Select a group (optional)')  
-    price=models.DecimalField(max_digits=6,decimal_places=2,default=5000)
 
     class Meta:
         ordering=['name']
@@ -72,8 +71,9 @@ class Product(models.Model):
 
 class ProductInstance(models.Model):
     product=models.ForeignKey(Product,on_delete=models.RESTRICT,related_name='product')
-    quantity=models.IntegerField()
+    quantity=models.IntegerField(help_text="Enter number of bags")
     warehouse=models.ForeignKey(Warehouse,on_delete=models.RESTRICT,related_name='warehouse')
+    price=models.DecimalField(max_digits=9,decimal_places=2,help_text="Price for 1 bag")
 
     def __str__(self) -> str:
         ''' String for representing the model object in admin site'''
