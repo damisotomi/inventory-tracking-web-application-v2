@@ -1,5 +1,5 @@
 from email import message
-from django.db.models import Sum
+from django.db.models import Sum, ExpressionWrapper,Q,F,DecimalField
 from multiprocessing import context
 from pyexpat.errors import messages
 import re
@@ -21,7 +21,9 @@ def index(request):
     warehouse_count=Warehouse.objects.count()
     group_count=Group.objects.count()
     product_queryset=Product.objects.select_related('group').prefetch_related('product').annotate(total_quantity=Sum('product__quantity')).order_by('-total_quantity')[0:5]
-    warehouse_queryset=Warehouse.objects.prefetch_related('warehouse').annotate(total_quantity=Sum('warehouse__quantity')).order_by('-total_quantity')[0:5]
+    # warehouse_queryset=Warehouse.objects.prefetch_related('warehouse').annotate(total_quantity=Sum('warehouse__quantity')).order_by('-total_quantity')[0:5]
+    total_value=ExpressionWrapper(F('quantity')*F('unit_price'),output_field=DecimalField())
+    warehouse_queryset=Warehouse.objects.prefetch_related('warehouse').annotate(total_value=Sum(total_value)).order_by('-total_value')[0:5]
     productinstance0=ProductInstance.objects.all()[0]
     productinstance1=ProductInstance.objects.all()[1]
     productinstance2=ProductInstance.objects.all()[2]
