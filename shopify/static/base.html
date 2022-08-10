@@ -357,7 +357,7 @@
 
 
                 <div class="card-body pb-0">
-                  <h5 class="card-title">Top 5 Warehouses <span>| by total product quantity </span></h5>
+                  <h5 class="card-title">Top 5 Warehouses <span>| by total value </span></h5>
 
                   <table class="table table-borderless">
                     <thead>
@@ -365,7 +365,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Warehouse Name</th>
                         {% comment %} <th scope="col">Total Value </th> {% endcomment %}
-                        <th scope="col">Product count(Bags)</th>
+                        <th scope="col">Total Value </th>
                         <th scope="col">Location</th>
                       </tr>
                     </thead>
@@ -374,8 +374,7 @@
                       <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td><a href="{{warehouse.get_absolute_url}}">{{ warehouse }}</a> </td>
-                        {% comment %} <td>${{warehouse.total_quantity}}</td> {% endcomment %}
-                        <td class="fw-bold">{{warehouse.total_quantity}}</td>
+                        <td class="fw-bold">${{warehouse.total_value}}</td>
                         <td>{{warehouse.location}}</td>
                       </tr>
                       {% endfor %}                  
