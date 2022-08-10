@@ -46,9 +46,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shopify.apps.ShopifyConfig',
     'crispy_forms',
+    # 'debug_toolbar'
+]
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
 ]
 
 MIDDLEWARE = [
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

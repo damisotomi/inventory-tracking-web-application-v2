@@ -68,13 +68,27 @@ class Product(models.Model):
 
     def totalquantity(self):
         total=0
-        for instance in self.product.all(): #note product is the related name here
-            total+=instance.quantity
+        if self.product:
+            for instance in self.product.all(): #note product is the related name here
+                total+=instance.quantity
+            return total
         return total
 
     def get_absolute_url(self):
         '''Returns the Url  to access a detail record for this product'''
         return reverse("product_detail", args=[str(self.code)])
+
+    def totalvalue(self):
+        total_value=0
+        if self.product:
+            for value in self.product.all():
+                total_value+= value.quantity * value.unit_price 
+            return total_value
+        return total_value
+
+    def average_price(self):
+        if self.product:
+            return round((self.totalvalue()/self.totalquantity()),2)
 
 
 class ProductInstance(models.Model):

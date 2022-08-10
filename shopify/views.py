@@ -22,7 +22,7 @@ def index(request):
     group_count=Group.objects.count()
     product_queryset=Product.objects.select_related('group').prefetch_related('product').annotate(total_quantity=Sum('product__quantity')).order_by('-total_quantity')[0:5]
     # warehouse_queryset=Warehouse.objects.prefetch_related('warehouse').annotate(total_quantity=Sum('warehouse__quantity')).order_by('-total_quantity')[0:5]
-    total_value=ExpressionWrapper(F('quantity')*F('unit_price'),output_field=DecimalField())
+    total_value=ExpressionWrapper(F('warehouse__quantity')*F('warehouse__unit_price'),output_field=DecimalField())
     warehouse_queryset=Warehouse.objects.prefetch_related('warehouse').annotate(total_value=Sum(total_value)).order_by('-total_value')[0:5]
     productinstance0=ProductInstance.objects.all()[0]
     productinstance1=ProductInstance.objects.all()[1]
@@ -116,12 +116,12 @@ class ProductInstanceDetailView(generic.DetailView):
 class ProductInstanceCreateView(generic.CreateView):
     model=ProductInstance
     template_name='product_instance_form.html'
-    fields=['product','quantity','warehouse']
+    fields=['product','quantity','unit_price','warehouse']
 
 class ProductInstanceUpdateView(generic.UpdateView):
     model=ProductInstance
     template_name='product_instance_update_form.html'
-    fields=['product','quantity','warehouse']
+    fields=['product','quantity','unit_price','warehouse']
 
 class ProductInstanceDeleteView(generic.DeleteView):
     model=ProductInstance

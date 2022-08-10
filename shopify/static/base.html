@@ -329,7 +329,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Product Name</th>
                         <th scope="col">Product Group</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Average Price</th>
                         <th scope="col">Total Quantity(Bags)</th>
                       </tr>
                     </thead>
@@ -339,7 +339,7 @@
                         <th scope="row">{{ forloop.counter }}</th>
                         <td><a href="{{product.get_absolute_url}}">{{ product }}</a> </td>
                         <td>{{ product.group.name }}</td>
-                        <td>${{product.price}}</td>
+                        <td>${{product.average_price}}</td>
                         <td>{{product.total_quantity}}</td>
                       </tr>
                       {% endfor %}
